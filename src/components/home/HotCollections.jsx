@@ -8,6 +8,7 @@ import axios from "axios";
 
 const HotCollections = () => {
   const [hotCollections, setHotCollections] = useState([]);
+  const [loading, setLoading] = useState(false);
   const options = {
     loop: true,
     margin: 10,
@@ -30,10 +31,12 @@ const HotCollections = () => {
   };
 
   const fetchHotCollections = async () => {
+    setLoading(true);
     const { data } = await axios.get(
       "https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections"
     );
     setHotCollections(data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -51,7 +54,7 @@ const HotCollections = () => {
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
-          {hotCollections.length ? (
+          {loading ? (
             <OwlCarousel className="owl-theme" {...options}>
               {hotCollections.map((nft) => (
                 <div className="nft_coll" key={nft.id}>

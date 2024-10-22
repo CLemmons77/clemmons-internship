@@ -9,6 +9,7 @@ import axios from "axios";
 
 const NewItems = () => {
   const [newItems, setNewItems] = useState([]);
+  const [loading, setLoading] = useState(false);
   const options = {
     loop: true,
     nav: true,
@@ -31,10 +32,12 @@ const NewItems = () => {
   };
 
   const fetchNewItems = async () => {
+    setLoading(true);
     const { data } = await axios.get(
       "https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems"
     );
     setNewItems(data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -51,7 +54,7 @@ const NewItems = () => {
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
-          {newItems.length ? (
+          {loading ? (
             <OwlCarousel className="owl-theme" {...options}>
               {newItems.map((item) => (
                   <div className="nft__item" key={item.id}>

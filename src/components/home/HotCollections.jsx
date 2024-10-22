@@ -38,8 +38,9 @@ const HotCollections = () => {
 
   useEffect(() => {
     fetchHotCollections();
-  }, []);
-
+  }
+  , []);
+  
   return (
     <section id="section-collections" className="no-bottom">
       <div className="container">

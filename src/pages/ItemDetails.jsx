@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import EthImage from "../images/ethereum.svg";
 import { Link, useParams } from "react-router-dom";
-import AuthorImage from "../images/author_thumbnail.jpg";
-import nftImage from "../images/nftImage.jpg";
 import axios from "axios";
 import Skeleton from "../components/UI/Skeleton";
+import Aos from "aos";
+import "aos/dist/aos.css"
 
 const ItemDetails = () => {
   const { id } = useParams();
@@ -20,6 +20,7 @@ const ItemDetails = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchNftData();
+    Aos.init();
   }, []);
 
   return (
@@ -35,13 +36,14 @@ const ItemDetails = () => {
                     src={nftData.nftImage}
                     className="img-fluid img-rounded mb-sm-30 nft-image"
                     alt=""
+                    data-aos="zoom-out" data-aos-duration="1500" data-aos-once="true"
                   />
                 </div>
                 <div className="col-md-6">
                   <div className="item_info">
                     <h2>{nftData.title + " #" + nftData.tag}</h2>
 
-                    <div className="item_info_counts">
+                    <div className="item_info_counts" >
                       <div className="item_info_views">
                         <i className="fa fa-eye"></i>
                         {nftData.views}
@@ -51,7 +53,7 @@ const ItemDetails = () => {
                         {nftData.likes}
                       </div>
                     </div>
-                    <p>
+                    <p data-aos="fade-left">
                       {nftData.description}
                     </p>
                     <div className="d-flex flex-row">
@@ -99,7 +101,7 @@ const ItemDetails = () => {
             ) : (
               <div className="row">
                 <div className="col-md-6 text-center">
-                  <Skeleton width="100%" height="100%" />
+                  <Skeleton width="100%" height="100%" borderRadius='1%' />
                 </div>
                 <div className="col-md-6">
                   <div className="item_info">
